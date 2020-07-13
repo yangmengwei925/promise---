@@ -1,0 +1,144 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-16 18:47:00
+ * @LastEditTime: 2020-06-03 21:17:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \undefinedc:\Users\925423\Desktop\promise\index.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise</title>
+</head>
+<body>
+    <!-- Promise是一个管理异步编程的方案，它是一个构造函数，
+    每次使用可用new创建实例
+    它有三种状态：pending、fulfilled和rejected，
+    这三种状态不会受外界影响，状态只能由
+    pending变为fullfilled（成功），pending变为rejected（失败）
+    且一旦改变就不会再改变，在状态改变后，它会返回成功的结果或者失败的原因，
+    它对外抛出了resolve、reject、catch、finally、then、all、race、done，在最新的提案中，添加了allSettled方法
+    ，它不管成功、失败都会返回，接下来，我们自己实现整个Promise -->
+    <script>
+        class MyPromise{
+                constructor(executor) {//executor 执行者
+                    this.status = "pending";     // 初始化状态为pending
+                    this.value = undefined;      // 初始化返回的成功的结果或者失败的原因
+                    
+                    // 这里是resolve方法，成功后执行，将状态改变为resolved，并且将结果返回
+                    let resolve = result => {
+                        if(this.status !== "pending") return;  // 状态一旦改变，就不会再变
+                        this.status = "resolved";
+                        this.value = result;
+                    }
+                    
+                    // 这里是reject方法，异常时执行，状态改为rejected，并且将失败的原因返回
+                    let reject = reason => {
+                        if(this.status !== "pending") return;
+                        this.status = "rejected";
+                        this.value = reason;
+                    }
+                    // try、catch捕获异常，如果错误，执行reject方法
+                    try {
+                        executor(resolve, reject)
+                    } catch(err) {
+                        reject(err)
+                    }
+                }
+}
+// Promise是一个类，有3个状态分别是：等待态（默认） 成功态 失败态
+
+// 打个比方比如承诺要给女朋友买一个礼物，一开始先承诺下来（等待态），买了（就是成功），你会让她高兴（就是结果），你不买了（就是失败），你的选择会得到不同的结果。
+
+// 简单体会：
+
+let  promise = new Promise((resolve,reject) => {
+    reject('参数')
+}).then(data =>{    
+//成功
+    console.log(data)
+},err =>{  
+ //失败
+    console.log('err',err)
+})
+// 每个promise实例都有一个.then方法。resolve（成功）,reject（失败）。
+// resolve,reject是自己定义的，你需要他成功或者失败，首先要看自己调用的是谁？
+
+// （重点）；一旦成功了就不能失败。
+
+// 如果你手动抛出一个异常那就注定会进失败的结果了。
+let promise =new Promise((resolve,reject)=>{
+    reject ('参数')
+}).then(data=>{
+    //成功
+    console.log("data")
+},err=>{
+    console.log('err')
+})
+Promise.all=function(arr){
+    return new Promiste((reject,resolve)=>{
+        if(!Array.isArray(arr)){
+            throw new TypeError(`argument must be array`)
+        }
+        let length = arr.length
+        let resolveNum = 0;
+        var resolveResult =[];
+        for(let i=0;i<length;i++){
+            arr[i].then(data=>{
+                resolveNum++;
+                resolveResult.push(data)
+                if(resolveNum==length){
+                    return result(resolveNum)
+                }
+            }).catch(data=>{
+                return reject(data)
+            })
+        }
+    })
+}
+//   function fn(obj){
+//       obj.name = "Tom";
+//       return obj;
+//   }
+//   var obj ={
+//       name:'John'
+//   }
+//   var newObj=fn(obj);
+//   alert(obj.name)
+//   alert(newObj.name)
+// var father1={
+//     name:"John"
+// };
+// var father2 = {
+//     name:"Tom"
+// }
+// var Son =function(){}
+// Son.prototype =father1;
+// var son1=new Son();
+// alert(son1.name);
+// Son.prototype=father2;
+// alert(son1.name);
+// var son2 =new Son()
+// alert(son2.name)
+// son2.name ="jack"
+// alert(father2.name)
+// alert(typeof sayHello)
+// sayHello()
+// function sayHello(){
+//     alert("hello!")
+// }
+
+// var name ="global"
+// var obj ={
+//     name :"fromObj",
+//     test:function(){
+//         setTimeout
+//     }
+// }
+
+    </script>
+</body>
+</html>

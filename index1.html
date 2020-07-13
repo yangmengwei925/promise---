@@ -1,0 +1,56 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-03 22:51:21
+ * @LastEditTime: 2020-06-03 23:01:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \promise\index1.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+              .body{width:100%; height:320px; margin:0 auto; overflow:hidden;}
+                 .content{width:500px; padding:3px 5px; font-size:16px; color:#333;}
+                 .content span{width:100%; height:30px; line-height:30px; display:block;}
+                 .btn_more{width:500px;}
+                .btn{width:55px; height:30px; text-align:center; line-height:30px; display:block; color:red; text-decoration:none;}
+          </style>
+      
+</head>
+<body>
+    <div class="body">
+      <div class="content">
+        <div id="more" class="more" style="display:none;">
+        <span>测试测试测试测试测试测试1</span><br>
+        <span>测试测试测试测试测试测试2</span><br>
+        <span>测试测试测试测试测试测试3</span><br>
+            <span>测试测试测试测试测试测试4</span><br>
+          <span>更多更多更多更多更多更多更多更多1</span><br>
+          <span>更多更多更多更多更多更多更多更多2</span><br>
+        </div>
+      </div>
+
+         <div class="btn_more">
+        <a href="javascript:show();" id="btn" class="btn">展开+</a>
+         </div>
+     </div>
+<script>
+        function show(){
+            document.getElementById("more").style.display = "block";
+            document.getElementById('btn').innerHTML="收起-";
+            document.getElementById('btn').href="javascript:hide();";
+        }
+
+        function hide(){
+            document.getElementById('more').style.display='none';
+            document.getElementById('btn').innerHTML="展开+";
+            document.getElementById('btn').href="javascript:show();";
+        }
+  </script>
+
+</body>
+</html>
